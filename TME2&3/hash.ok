@@ -1,0 +1,92 @@
+#pragma once
+
+#include <iostream>
+#include <fstream>
+#include <regex>
+#include <chrono>
+#include <utility>
+#include <vector>
+#include <initializer_list>
+#include <list>
+#include <forward_list>
+
+
+
+
+template <typename K, typename V>
+class HashMap{
+
+	struct Entry{
+		const K key;
+		V value;
+		Entry (const K& key, const V& value)
+		: key(key), value(value){}
+	};
+
+	// attribut
+	std::vector <std::forward_list<Entry>> buckets;
+
+public :
+
+	HashMap(){ // Constructeur
+		for (size_t i=0; i<25000 ; i++){
+			buckets.push_back(std::forward_list<Entry>());
+		}
+	};
+
+
+	V* get(const K& key) {
+		size_t h = std::hash<K>()(key);
+		h = h%buckets.size();
+		for(Entry &ent : buckets[h]){
+			if(ent.key == key){
+				return & ent.value;
+			}
+		}
+		return nullptr;
+	}
+
+	void put (const K& key, const V& value){
+		size_t h = std::hash<K>()(key);
+		h = h%buckets.size();
+		bool foundit=false;
+
+		for(Entry &ent : buckets[h]){
+			if(ent.key == key) {
+				ent.value=value;
+				foundit = true;
+				break;
+			}
+		}
+		if(!foundit) buckets[h].push_front(Entry(key,value));
+	}
+
+	size_t getMotsUnique(){
+		size_t nbMots=0;
+		for (auto &L : buckets){
+			for(auto &ent : L) ++nbMots;
+		}
+		return nbMots;
+	}
+
+	size_t getMots(){
+		size_t nbMots=0;
+		for (auto &L : buckets){
+			for(auto &ent : L) nbMots += ent.value;
+		}
+		return nbMots;
+	}
+
+	std::vector <std::pair<K,V>> hashMaptoVector(){
+		std::vector <std::pair<K,V>> vecteur;
+		for (auto &L : buckets){
+			for(auto &ent : L){
+				vecteur.push_back(make_pair(ent.key,ent.value));
+			}
+		}
+		return vecteur;
+	}
+
+};
+
+

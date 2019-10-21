@@ -1,0 +1,26 @@
+=== COMPTE RENDU PSCR M1 SESI TME 2 ===
+== ETUDIANT 3414931 OUDY CHARLY ==
+
+= Question 1 =
+Le programme nous indique 566193 mots en 1516ms
+
+= Question 2 =
+On peut compter 20333 mots différents en 16805ms
+
+= Question 3 =
+On fait une boucle while (et pas foreach car on ne veut pas parcourir tout) sur le vecteur de pairs.
+war = 298
+peace = 114
+toto = 0
+
+= Question 4 = 
+Cet algorithme est compliqué car on doit faire des boucles manuellement afin d'aller chercher la bonne case.
+L'utilisation d'une boucle while permet d'obtenir une complexité Ln(n), mais ce n'est pas satisfaisant.
+On aurait pu utiliser un contneur associatif <map>, qui permet lors de la recherche d'élements, de piocher directement la bonne case, donc par exemple d'aller chercher directement le bon mot.
+
+ == Question 5 ==
+ Implantation réussie, voir code.
+ 
+ == Question 6 ==
+ 
+ 
